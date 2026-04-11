@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Motivación — Tu momento es AHORA</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Georgia', serif;
+      background: #0d0d0d;
+      color: #fff;
+      width: 210mm;
+      min-height: 297mm;
+    }
+
+    /* ─── PAGE 1 ─── */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+    }
+
+    /* ── Hero background ── */
+    .page-1 {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a0533 40%, #0d1a4a 100%);
+    }
+
+    /* Decorative orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+    }
+    .orb-1 { width: 420px; height: 420px; background: #7c3aed; top: -120px; right: -100px; }
+    .orb-2 { width: 300px; height: 300px; background: #2563eb; bottom: 60px; left: -80px; }
+    .orb-3 { width: 200px; height: 200px; background: #db2777; top: 55%; left: 50%; opacity: 0.25; }
+
+    /* Gold accent line */
+    .accent-line {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #f59e0b, #fbbf24, #d97706, #fbbf24, #f59e0b);
+    }
+
+    /* Side decorative stripe */
+    .side-stripe {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 8px;
+      background: linear-gradient(180deg, #f59e0b, #7c3aed, #2563eb);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      padding: 70px 55px 60px 70px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(245,158,11,0.18);
+      border: 1px solid rgba(245,158,11,0.55);
+      color: #fbbf24;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 32px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', 'Georgia', serif;
+      font-size: 62px;
+      font-weight: 900;
+      line-height: 1.05;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(90deg, #fbbf24, #f472b6, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 48px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Divider with diamond */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .divider-line { flex: 1; height: 1px; background: rgba(255,255,255,0.2); }
+    .divider-diamond {
+      width: 10px; height: 10px;
+      background: #fbbf24;
+      transform: rotate(45deg);
+    }
+
+    /* Main quote block */
+    .main-quote {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-left: 4px solid #fbbf24;
+      border-radius: 0 16px 16px 0;
+      padding: 32px 36px;
+      margin-bottom: 40px;
+      backdrop-filter: blur(10px);
+    }
+
+    .quote-mark {
+      font-size: 80px;
+      line-height: 0.6;
+      color: rgba(245,158,11,0.4);
+      font-family: 'Playfair Display', serif;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .main-quote p {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 23px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.5;
+    }
+
+    .main-quote .author {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #fbbf24;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 16px;
+      font-weight: 600;
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: flex;
+      gap: 0;
+      margin-bottom: 44px;
+    }
+
+    .stat-box {
+      flex: 1;
+      text-align: center;
+      padding: 20px 10px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .stat-box + .stat-box { border-left: 1px solid rgba(255,255,255,0.12); }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #fbbf24, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ── PAGE 2 ── */
+    .page-2 {
+      background: linear-gradient(160deg, #030712 0%, #0f172a 50%, #1e1b4b 100%);
+    }
+
+    .page-2-content {
+      position: relative;
+      z-index: 10;
+      padding: 65px 55px 60px 70px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #818cf8;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 38px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 36px;
+    }
+
+    .section-title span {
+      background: linear-gradient(90deg, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Principle cards */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 44px;
+    }
+
+    .principle-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 26px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .principle-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .card-v { --c1: #7c3aed; --c2: #a78bfa; }
+    .card-f { --c1: #0891b2; --c2: #22d3ee; }
+    .card-a { --c1: #b91c1c; --c2: #f87171; }
+    .card-p { --c1: #059669; --c2: #34d399; }
+
+    .card-v::before { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+    .card-f::before { background: linear-gradient(90deg, #0891b2, #22d3ee); }
+    .card-a::before { background: linear-gradient(90deg, #b91c1c, #f87171); }
+    .card-p::before { background: linear-gradient(90deg, #059669, #34d399); }
+
+    .card-number {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .card-text {
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.58);
+    }
+
+    /* Big motivational quote */
+    .big-quote {
+      text-align: center;
+      padding: 42px 20px;
+      position: relative;
+      margin-bottom: 36px;
+    }
+
+    .big-quote::before, .big-quote::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #818cf8, transparent);
+      margin: 0 auto 24px;
+    }
+    .big-quote::after { margin: 24px auto 0; }
+
+    .big-quote-text {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 27px;
+      font-weight: 700;
+      color: #c7d2fe;
+      line-height: 1.45;
+      font-style: italic;
+    }
+
+    .big-quote-sub {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-top: 18px;
+    }
+
+    /* ── PAGE 3 ── */
+    .page-3 {
+      background: #0a0a0a;
+      position: relative;
+    }
+
+    .page-3::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 30%, rgba(124,58,237,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 70%, rgba(245,158,11,0.12) 0%, transparent 60%);
+    }
+
+    .page-3-content {
+      position: relative;
+      z-index: 10;
+      padding: 65px 55px 60px 70px;
+    }
+
+    /* Timeline steps */
+    .timeline {
+      margin-bottom: 44px;
+    }
+
+    .timeline-step {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 28px;
+      align-items: flex-start;
+    }
+
+    .step-bubble {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 900;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .bubble-1 { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+    .bubble-2 { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
+    .bubble-3 { background: linear-gradient(135deg, #0891b2, #22d3ee); }
+    .bubble-4 { background: linear-gradient(135deg, #059669, #34d399); }
+    .bubble-5 { background: linear-gradient(135deg, #db2777, #f472b6); }
+
+    .step-content h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .step-content p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+    }
+
+    /* Closing hero banner */
+    .closing-banner {
+      background: linear-gradient(135deg, #7c3aed 0%, #2563eb 50%, #0891b2 100%);
+      border-radius: 20px;
+      padding: 44px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .closing-banner::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 50%;
+    }
+
+    .closing-banner::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: -40px;
+      width: 150px; height: 150px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+
+    .closing-banner h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 36px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .closing-banner p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      max-width: 440px;
+      margin: 0 auto 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .closing-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 9px 24px;
+      border-radius: 50px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 28px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════ PAGE 1 ════════════ -->
+  <div class="page page-1">
+    <div class="accent-line"></div>
+    <div class="side-stripe"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="hero-content">
+      <div class="badge">✦ Mensaje para ti ✦</div>
+
+      <h1 class="hero-title">
+        Tu Grandeza<br>
+        <span class="highlight">no tiene límites.</span>
+      </h1>
+      <p class="hero-subtitle">
+        Un recordatorio poderoso para quien lo necesita hoy.
+      </p>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-diamond"></div>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="main-quote">
+        <span class="quote-mark">"</span>
+        <p>
+          No viniste hasta aquí para rendirte.
+          Cada obstáculo que superaste te talló
+          en la persona extraordinaria que eres hoy.
+          El mundo te necesita funcionando, brillando,
+          dando lo mejor de ti.
+        </p>
+        <p class="author">— Para ti, siempre</p>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-box">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">de éxito en superar</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">∞</span>
+          <span class="stat-label">tu potencial real</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">1</span>
+          <span class="stat-label">vida para vivirla a full</span>
+        </div>
+      </div>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-diamond"></div>
+        <div class="divider-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ PAGE 2 ════════════ -->
+  <div class="page page-2">
+    <div class="orb orb-1" style="opacity:0.15; top:-80px; right:-60px; width:350px; height:350px;"></div>
+
+    <div class="page-2-content">
+      <p class="section-label">✦ Los pilares de quien triunfa</p>
+      <h2 class="section-title">
+        4 verdades que los<br><span>grandes nunca olvidan</span>
+      </h2>
+
+      <div class="principles-grid">
+        <div class="principle-card card-v">
+          <p class="card-number">01 — VISIÓN</p>
+          <h3 class="card-title">Sueña en grande</h3>
+          <p class="card-text">
+            Los grandes logros comenzaron como "ideas locas". Tu visión no necesita aprobación — necesita tu fe inquebrantable.
+          </p>
+        </div>
+
+        <div class="principle-card card-f">
+          <p class="card-number">02 — ENFOQUE</p>
+          <h3 class="card-title">Un paso a la vez</h3>
+          <p class="card-text">
+            No tienes que ver el camino completo. Solo da el siguiente paso con todo lo que tienes hoy.
+          </p>
+        </div>
+
+        <div class="principle-card card-a">
+          <p class="card-number">03 — ACCIÓN</p>
+          <h3 class="card-title">Muévete ya</h3>
+          <p class="card-text">
+            La perfección es el enemigo del progreso. Una acción imperfecta hoy vale más que mil planes perfectos mañana.
+          </p>
+        </div>
+
+        <div class="principle-card card-p">
+          <p class="card-number">04 — PERSISTENCIA</p>
+          <h3 class="card-title">No pares nunca</h3>
+          <p class="card-text">
+            El éxito no es para los más talentosos — es para quienes deciden levantarse una vez más de las que caen.
+          </p>
+        </div>
+      </div>
+
+      <div class="big-quote">
+        <p class="big-quote-text">
+          "Las personas que mueven el mundo<br>
+          son las que se atrevieron a creer<br>
+          que podían cambiarlo."
+        </p>
+        <p class="big-quote-sub">— Una verdad que vive dentro de ti</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════ PAGE 3 ════════════ -->
+  <div class="page page-3">
+    <div class="page-3-content">
+      <p class="section-label">✦ Tu hoja de ruta</p>
+      <h2 class="section-title">
+        5 pasos para encender<br>
+        <span style="background:linear-gradient(90deg,#fbbf24,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">tu mejor versión</span>
+      </h2>
+
+      <div class="timeline">
+
+        <div class="timeline-step">
+          <div class="step-bubble bubble-1">1</div>
+          <div class="step-content">
+            <h3>Empieza hoy, no mañana</h3>
+            <p>El mejor momento para comenzar fue ayer. El segundo mejor momento es ahora mismo. No hay excusas — hay decisiones.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-bubble bubble-2">2</div>
+          <div class="step-content">
+            <h3>Rodéate de quienes te elevan</h3>
+            <p>Tu entorno es tu destino. Elige personas que celebren tu crecimiento, te reten a ser mejor y crean en ti cuando tú no puedas.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-bubble bubble-3">3</div>
+          <div class="step-content">
+            <h3>Celebra cada victoria, por pequeña que sea</h3>
+            <p>Cada meta cumplida, cada hábito mantenido, cada "no" dicho cuando hacía falta — todo eso merece reconocimiento.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-bubble bubble-4">4</div>
+          <div class="step-content">
+            <h3>Conviértete en estudiante permanente</h3>
+            <p>Los que más lejos llegan son los que nunca dejan de aprender. Lee, escucha, pregunta, experimenta y crece sin parar.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-bubble bubble-5">5</div>
+          <div class="step-content">
+            <h3>Recuerda siempre por qué empezaste</h3>
+            <p>Los días difíciles existen — pero tu "por qué" es más fuerte que cualquier obstáculo. Vuelve a él cada vez que lo necesites.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="closing-banner">
+        <h2>Tu momento es AHORA.</h2>
+        <p>
+          No esperes las condiciones perfectas, la oportunidad perfecta
+          ni el momento perfecto. Tú eres suficiente, estás listo
+          y el mundo está esperando lo que solo tú puedes dar.
+        </p>
+        <span class="closing-tag">✦ Ve y conquista ✦</span>
+      </div>
+
+      <div class="footer">
+        Creado con amor &nbsp;·&nbsp; Porque tú te lo mereces &nbsp;·&nbsp; 2026
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
