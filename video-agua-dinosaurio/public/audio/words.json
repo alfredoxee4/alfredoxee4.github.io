@@ -1,0 +1,617 @@
+{
+ "s1": {
+  "text": "¿Sabías que el agua que estás tomando ahora mismo... ya la bebió un dinosaurio?",
+  "words": [
+   {
+    "text": "Sabías",
+    "start": 0.094625,
+    "end": 0.585708
+   },
+   {
+    "text": "que",
+    "start": 0.596875,
+    "end": 0.7085
+   },
+   {
+    "text": "el",
+    "start": 0.719625,
+    "end": 0.842375
+   },
+   {
+    "text": "agua",
+    "start": 0.853583,
+    "end": 1.054458
+   },
+   {
+    "text": "que",
+    "start": 1.065625,
+    "end": 1.17725
+   },
+   {
+    "text": "estás",
+    "start": 1.188375,
+    "end": 1.478541
+   },
+   {
+    "text": "tomando",
+    "start": 1.48975,
+    "end": 1.846875
+   },
+   {
+    "text": "ahora",
+    "start": 1.858041,
+    "end": 2.092416
+   },
+   {
+    "text": "mismo",
+    "start": 2.103583,
+    "end": 2.460708
+   },
+   {
+    "text": "ya",
+    "start": 2.695083,
+    "end": 2.828999
+   },
+   {
+    "text": "la",
+    "start": 2.840166,
+    "end": 2.918291
+   },
+   {
+    "text": "bebió",
+    "start": 2.929458,
+    "end": 3.174999
+   },
+   {
+    "text": "un",
+    "start": 3.186166,
+    "end": 3.297791
+   },
+   {
+    "text": "dinosaurio",
+    "start": 3.308916,
+    "end": 3.956249
+   }
+  ]
+ },
+ "s2": {
+  "text": "Esa misma agua que tienes en la mano, nunca se crea ni se destruye.",
+  "words": [
+   {
+    "text": "Esa",
+    "start": 0.094625,
+    "end": 0.340166
+   },
+   {
+    "text": "misma",
+    "start": 0.351333,
+    "end": 0.719624
+   },
+   {
+    "text": "agua",
+    "start": 0.730791,
+    "end": 0.931666
+   },
+   {
+    "text": "que",
+    "start": 0.942875,
+    "end": 1.065625
+   },
+   {
+    "text": "tienes",
+    "start": 1.076791,
+    "end": 1.389291
+   },
+   {
+    "text": "en",
+    "start": 1.400458,
+    "end": 1.467416
+   },
+   {
+    "text": "la",
+    "start": 1.478583,
+    "end": 1.534374
+   },
+   {
+    "text": "mano",
+    "start": 1.545541,
+    "end": 1.835707
+   },
+   {
+    "text": "nunca",
+    "start": 2.125875,
+    "end": 2.371416
+   },
+   {
+    "text": "se",
+    "start": 2.382583,
+    "end": 2.516499
+   },
+   {
+    "text": "crea",
+    "start": 2.527666,
+    "end": 2.773207
+   },
+   {
+    "text": "ni",
+    "start": 2.784375,
+    "end": 2.896
+   },
+   {
+    "text": "se",
+    "start": 2.907125,
+    "end": 3.041041
+   },
+   {
+    "text": "destruye",
+    "start": 3.05225,
+    "end": 3.5545
+   }
+  ]
+ },
+ "s3": {
+  "text": "Ha estado dando vueltas por la Tierra durante cuatro mil millones de años.",
+  "words": [
+   {
+    "text": "Ha",
+    "start": 0.094625,
+    "end": 0.239708
+   },
+   {
+    "text": "estado",
+    "start": 0.250875,
+    "end": 0.585708
+   },
+   {
+    "text": "dando",
+    "start": 0.596875,
+    "end": 0.853583
+   },
+   {
+    "text": "vueltas",
+    "start": 0.86475,
+    "end": 1.221875
+   },
+   {
+    "text": "por",
+    "start": 1.233041,
+    "end": 1.389291
+   },
+   {
+    "text": "la",
+    "start": 1.400458,
+    "end": 1.489749
+   },
+   {
+    "text": "Tierra",
+    "start": 1.500875,
+    "end": 1.757583
+   },
+   {
+    "text": "durante",
+    "start": 1.76875,
+    "end": 2.137041
+   },
+   {
+    "text": "cuatro",
+    "start": 2.148208,
+    "end": 2.427208
+   },
+   {
+    "text": "mil",
+    "start": 2.438375,
+    "end": 2.628125
+   },
+   {
+    "text": "millones",
+    "start": 2.639291,
+    "end": 3.063416
+   },
+   {
+    "text": "de",
+    "start": 3.074541,
+    "end": 3.163832
+   },
+   {
+    "text": "años",
+    "start": 3.175,
+    "end": 3.61025
+   }
+  ]
+ },
+ "s4": {
+  "text": "Fue lluvia en la época de los dinosaurios... pasó por la garganta de un Tiranosaurio Rex... estuvo en océanos que ya no existen... y tocó plantas del Jurásico que hoy son petróleo.",
+  "words": [
+   {
+    "text": "Fue",
+    "start": 0.093458,
+    "end": 0.267374
+   },
+   {
+    "text": "lluvia",
+    "start": 0.27825,
+    "end": 0.560875
+   },
+   {
+    "text": "en",
+    "start": 0.57175,
+    "end": 0.647833
+   },
+   {
+    "text": "la",
+    "start": 0.658708,
+    "end": 0.789124
+   },
+   {
+    "text": "época",
+    "start": 0.8,
+    "end": 1.104333
+   },
+   {
+    "text": "de",
+    "start": 1.115208,
+    "end": 1.202166
+   },
+   {
+    "text": "los",
+    "start": 1.213041,
+    "end": 1.343457
+   },
+   {
+    "text": "dinosaurios",
+    "start": 1.354333,
+    "end": 2.017374
+   },
+   {
+    "text": "pasó",
+    "start": 2.223916,
+    "end": 2.484791
+   },
+   {
+    "text": "por",
+    "start": 2.495666,
+    "end": 2.647832
+   },
+   {
+    "text": "la",
+    "start": 2.658708,
+    "end": 2.723916
+   },
+   {
+    "text": "garganta",
+    "start": 2.734791,
+    "end": 3.147832
+   },
+   {
+    "text": "de",
+    "start": 3.158708,
+    "end": 3.256541
+   },
+   {
+    "text": "un",
+    "start": 3.267375,
+    "end": 3.386958
+   },
+   {
+    "text": "Tiranosaurio",
+    "start": 3.397833,
+    "end": 4.039124
+   },
+   {
+    "text": "Rex",
+    "start": 4.05,
+    "end": 4.365208
+   },
+   {
+    "text": "estuvo",
+    "start": 4.604333,
+    "end": 4.952166
+   },
+   {
+    "text": "en",
+    "start": 4.963041,
+    "end": 5.028249
+   },
+   {
+    "text": "océanos",
+    "start": 5.039125,
+    "end": 5.484791
+   },
+   {
+    "text": "que",
+    "start": 5.495666,
+    "end": 5.593499
+   },
+   {
+    "text": "ya",
+    "start": 5.604333,
+    "end": 5.756499
+   },
+   {
+    "text": "no",
+    "start": 5.767375,
+    "end": 5.854333
+   },
+   {
+    "text": "existen",
+    "start": 5.865208,
+    "end": 6.343458
+   },
+   {
+    "text": "y",
+    "start": 6.582625,
+    "end": 6.636958
+   },
+   {
+    "text": "tocó",
+    "start": 6.647833,
+    "end": 6.908708
+   },
+   {
+    "text": "plantas",
+    "start": 6.919583,
+    "end": 7.278291
+   },
+   {
+    "text": "del",
+    "start": 7.289125,
+    "end": 7.376083
+   },
+   {
+    "text": "Jurásico",
+    "start": 7.386958,
+    "end": 7.897833
+   },
+   {
+    "text": "que",
+    "start": 7.908708,
+    "end": 8.039124
+   },
+   {
+    "text": "hoy",
+    "start": 8.05,
+    "end": 8.202166
+   },
+   {
+    "text": "son",
+    "start": 8.213041,
+    "end": 8.419582
+   },
+   {
+    "text": "petróleo",
+    "start": 8.430416,
+    "end": 8.930416
+   }
+  ]
+ },
+ "s5": {
+  "text": "Cada vaso de agua que bebes, es un pedacito de historia antigua... literalmente, estás bebiendo tiempo.",
+  "words": [
+   {
+    "text": "Cada",
+    "start": 0.099,
+    "end": 0.331833
+   },
+   {
+    "text": "vaso",
+    "start": 0.344125,
+    "end": 0.626
+   },
+   {
+    "text": "de",
+    "start": 0.63825,
+    "end": 0.760791
+   },
+   {
+    "text": "agua",
+    "start": 0.773041,
+    "end": 1.018124
+   },
+   {
+    "text": "que",
+    "start": 1.030375,
+    "end": 1.140666
+   },
+   {
+    "text": "bebes",
+    "start": 1.152958,
+    "end": 1.545124
+   },
+   {
+    "text": "es",
+    "start": 1.826958,
+    "end": 1.998541
+   },
+   {
+    "text": "un",
+    "start": 2.010791,
+    "end": 2.121082
+   },
+   {
+    "text": "pedacito",
+    "start": 2.133333,
+    "end": 2.648041
+   },
+   {
+    "text": "de",
+    "start": 2.660291,
+    "end": 2.758332
+   },
+   {
+    "text": "historia",
+    "start": 2.770583,
+    "end": 3.199499
+   },
+   {
+    "text": "antigua",
+    "start": 3.21175,
+    "end": 3.689708
+   },
+   {
+    "text": "literalmente",
+    "start": 3.971583,
+    "end": 4.743624
+   },
+   {
+    "text": "estás",
+    "start": 5.01325,
+    "end": 5.380916
+   },
+   {
+    "text": "bebiendo",
+    "start": 5.393125,
+    "end": 5.822041
+   },
+   {
+    "text": "tiempo",
+    "start": 5.834333,
+    "end": 6.263249
+   }
+  ]
+ },
+ "s6": {
+  "text": "Así que la próxima vez que tomes agua... mírala diferente.",
+  "words": [
+   {
+    "text": "Así",
+    "start": 0.095458,
+    "end": 0.390916
+   },
+   {
+    "text": "que",
+    "start": 0.402291,
+    "end": 0.515916
+   },
+   {
+    "text": "la",
+    "start": 0.527291,
+    "end": 0.618207
+   },
+   {
+    "text": "próxima",
+    "start": 0.629541,
+    "end": 1.004541
+   },
+   {
+    "text": "vez",
+    "start": 1.015916,
+    "end": 1.209082
+   },
+   {
+    "text": "que",
+    "start": 1.220458,
+    "end": 1.334083
+   },
+   {
+    "text": "tomes",
+    "start": 1.345458,
+    "end": 1.674999
+   },
+   {
+    "text": "agua",
+    "start": 1.686375,
+    "end": 1.970458
+   },
+   {
+    "text": "mírala",
+    "start": 2.231833,
+    "end": 2.538666
+   },
+   {
+    "text": "diferente",
+    "start": 2.55,
+    "end": 3.129541
+   }
+  ]
+ },
+ "s7": {
+  "text": "Si te voló la cabeza esto, dale like y síguenos... porque aquí vienen cosas aún más fuertes.",
+  "words": [
+   {
+    "text": "Si",
+    "start": 0.09275,
+    "end": 0.306416
+   },
+   {
+    "text": "te",
+    "start": 0.317083,
+    "end": 0.402541
+   },
+   {
+    "text": "voló",
+    "start": 0.41325,
+    "end": 0.626916
+   },
+   {
+    "text": "la",
+    "start": 0.637625,
+    "end": 0.723083
+   },
+   {
+    "text": "cabeza",
+    "start": 0.73375,
+    "end": 1.129041
+   },
+   {
+    "text": "esto",
+    "start": 1.13975,
+    "end": 1.417541
+   },
+   {
+    "text": "dale",
+    "start": 1.652583,
+    "end": 1.866249
+   },
+   {
+    "text": "like",
+    "start": 1.876916,
+    "end": 2.143999
+   },
+   {
+    "text": "y",
+    "start": 2.154708,
+    "end": 2.197458
+   },
+   {
+    "text": "síguenos",
+    "start": 2.208125,
+    "end": 2.699583
+   },
+   {
+    "text": "porque",
+    "start": 2.902583,
+    "end": 3.126958
+   },
+   {
+    "text": "aquí",
+    "start": 3.137625,
+    "end": 3.340625
+   },
+   {
+    "text": "vienen",
+    "start": 3.351291,
+    "end": 3.639749
+   },
+   {
+    "text": "cosas",
+    "start": 3.650416,
+    "end": 4.002999
+   },
+   {
+    "text": "aún",
+    "start": 4.013666,
+    "end": 4.216666
+   },
+   {
+    "text": "más",
+    "start": 4.227333,
+    "end": 4.398291
+   },
+   {
+    "text": "fuertes",
+    "start": 4.408958,
+    "end": 4.943166
+   }
+  ]
+ }
+}
