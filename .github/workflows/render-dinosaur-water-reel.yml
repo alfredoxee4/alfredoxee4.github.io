@@ -1,0 +1,109 @@
+name: Render Dinosaur Water Reel V3
+
+on:
+  push:
+    branches:
+      - feat/dinosaur-water-reel-v3
+    paths:
+      - '.github/workflows/render-dinosaur-water-reel.yml'
+      - 'video/dinosaur-water-reel/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/render-dinosaur-water-reel.yml'
+      - 'video/dinosaur-water-reel/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    defaults:
+      run:
+        working-directory: video/dinosaur-water-reel
+
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: video/dinosaur-water-reel/package.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install JavaScript dependencies
+        run: npm install
+
+      - name: Configure bundled FFmpeg and FFprobe
+        run: |
+          set -euo pipefail
+          FFMPEG_BIN="$(node -p "require('ffmpeg-static')")"
+          FFPROBE_BIN="$(node -p "require('ffprobe-static').path")"
+          chmod +x "$FFMPEG_BIN" "$FFPROBE_BIN"
+          echo "FFMPEG_PATH=$FFMPEG_BIN" >> "$GITHUB_ENV"
+          echo "FFPROBE_PATH=$FFPROBE_BIN" >> "$GITHUB_ENV"
+          "$FFMPEG_BIN" -version | head -n 1
+          "$FFPROBE_BIN" -version | head -n 1
+
+      - name: Install local neural voice and image dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade piper-tts Pillow numpy
+          python -c "import piper, onnxruntime; print('Piper:', piper.__file__); print('ONNX Runtime:', onnxruntime.__version__)"
+
+      - name: Generate native cinematic scenes
+        run: python -u scripts/fetch_assets.py
+
+      - name: Generate local neural Spanish narration
+        run: |
+          set -o pipefail
+          python -u scripts/generate_voice.py 2>&1 | tee voice-debug.log
+
+      - name: Preserve voice diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: voice-diagnostics-${{ github.run_number }}
+          path: |
+            video/dinosaur-water-reel/voice-debug.log
+            video/dinosaur-water-reel/.build/piper-model/**
+            video/dinosaur-water-reel/.build/voice/**
+          if-no-files-found: warn
+          retention-days: 2
+
+      - name: Generate original background score
+        run: python -u scripts/generate_music.py
+
+      - name: Show generated voice metadata
+        run: cat public/voice-metadata.json
+
+      - name: Render final vertical Reel
+        run: npm run render
+
+      - name: Verify final media
+        run: |
+          "$FFPROBE_PATH" -v error -show_entries format=duration,size -show_entries stream=codec_name,width,height,r_frame_rate -of json out/dinosaur-water-reel-v3.mp4
+          test -s out/dinosaur-water-reel-v3.mp4
+
+      - name: Upload final MP4 and metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: dinosaur-water-reel-v3
+          path: |
+            video/dinosaur-water-reel/out/dinosaur-water-reel-v3.mp4
+            video/dinosaur-water-reel/public/voice-metadata.json
+            video/dinosaur-water-reel/src/generatedTimings.json
+          if-no-files-found: error
+          retention-days: 14

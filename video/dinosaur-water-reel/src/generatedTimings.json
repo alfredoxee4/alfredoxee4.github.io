@@ -1,0 +1,12 @@
+[
+  {"id":"hook","text":"¿Sabías que el agua que estás tomando ahora mismo… ya la bebió un dinosaurio?","start":0.0,"end":3.9,"emphasis":"dinosaurio"},
+  {"id":"same-water","text":"Esa misma agua nunca se crea ni se destruye.","start":4.05,"end":6.7,"emphasis":"nunca"},
+  {"id":"four-billion","text":"Ha estado dando vueltas por la Tierra durante 4 mil millones de años.","start":6.82,"end":10.45,"emphasis":"4 mil millones"},
+  {"id":"rain","text":"Fue lluvia en la época de los dinosaurios…","start":10.55,"end":13.3,"emphasis":"lluvia"},
+  {"id":"trex","text":"pasó por la garganta de un Tiranosaurio Rex…","start":13.42,"end":16.55,"emphasis":"Tiranosaurio Rex"},
+  {"id":"oceans","text":"estuvo en océanos que ya no existen…","start":16.68,"end":19.7,"emphasis":"océanos"},
+  {"id":"oil","text":"y tocó plantas del Jurásico que hoy son petróleo.","start":19.82,"end":23.25,"emphasis":"petróleo"},
+  {"id":"history","text":"Cada vaso de agua es un pedacito de historia antigua… literalmente estás bebiendo tiempo.","start":23.42,"end":28.15,"emphasis":"bebiendo tiempo"},
+  {"id":"different","text":"Así que la próxima vez que tomes agua… mírala diferente.","start":28.28,"end":30.7,"emphasis":"diferente"},
+  {"id":"cta","text":"Si te voló la cabeza, dale like y síguenos. Aquí vienen cosas aún más fuertes.","start":30.78,"end":32.8,"emphasis":"síguenos"}
+]
