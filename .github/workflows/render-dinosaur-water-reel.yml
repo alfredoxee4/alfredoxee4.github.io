@@ -51,13 +51,13 @@ jobs:
       - name: Install JavaScript dependencies
         run: npm install
 
-      - name: Install neural voice and image dependencies
-        run: python -m pip install --upgrade pip edge-tts gTTS Pillow numpy
+      - name: Install local neural voice and image dependencies
+        run: python -m pip install --upgrade pip piper-tts Pillow numpy
 
       - name: Generate native cinematic scenes
         run: python scripts/fetch_assets.py
 
-      - name: Generate neural Spanish narration
+      - name: Generate local neural Spanish narration
         run: python scripts/generate_voice.py
 
       - name: Generate original background score
