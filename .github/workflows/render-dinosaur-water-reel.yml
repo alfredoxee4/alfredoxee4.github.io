@@ -1,0 +1,81 @@
+name: Render Dinosaur Water Reel V3
+
+on:
+  push:
+    branches:
+      - feat/dinosaur-water-reel-v3
+    paths:
+      - '.github/workflows/render-dinosaur-water-reel.yml'
+      - 'video/dinosaur-water-reel/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    defaults:
+      run:
+        working-directory: video/dinosaur-water-reel
+
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: video/dinosaur-water-reel/package.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install system media tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-core fonts-noto-color-emoji
+
+      - name: Install JavaScript dependencies
+        run: npm install
+
+      - name: Install neural voice and image dependencies
+        run: python -m pip install --upgrade pip edge-tts gTTS Pillow numpy
+
+      - name: Generate native cinematic scenes
+        run: python scripts/fetch_assets.py
+
+      - name: Generate neural Spanish narration
+        run: python scripts/generate_voice.py
+
+      - name: Generate original background score
+        run: python scripts/generate_music.py
+
+      - name: Show generated voice metadata
+        run: cat public/voice-metadata.json
+
+      - name: Render final vertical Reel
+        run: npm run render
+
+      - name: Verify final media
+        run: |
+          ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_name,width,height,r_frame_rate -of json out/dinosaur-water-reel-v3.mp4
+          test -s out/dinosaur-water-reel-v3.mp4
+
+      - name: Upload final MP4 and metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: dinosaur-water-reel-v3
+          path: |
+            video/dinosaur-water-reel/out/dinosaur-water-reel-v3.mp4
+            video/dinosaur-water-reel/public/voice-metadata.json
+            video/dinosaur-water-reel/src/generatedTimings.json
+          if-no-files-found: error
+          retention-days: 14
