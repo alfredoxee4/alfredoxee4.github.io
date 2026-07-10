@@ -153,7 +153,7 @@ export const Captions: React.FC = () => {
           flexWrap: counterTok ? "nowrap" : "wrap",
           justifyContent: "center",
           alignItems: "center",
-          columnGap: 24,
+          columnGap: 36,
           rowGap: 12,
           textAlign: "center",
           transform: `translateY(${(1 - enter) * 48}px) scale(${0.9 + 0.1 * enter})`,
@@ -166,7 +166,7 @@ export const Captions: React.FC = () => {
             <div
               style={{
                 display: "flex",
-                columnGap: 24,
+                columnGap: 32,
                 justifyContent: "center",
                 marginTop: 6,
               }}
