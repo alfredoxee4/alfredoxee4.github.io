@@ -43,13 +43,19 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Verify bundled media tools
-        run: |
-          ffmpeg -version | head -n 1
-          ffprobe -version | head -n 1
-
       - name: Install JavaScript dependencies
         run: npm install
+
+      - name: Configure bundled FFmpeg and FFprobe
+        run: |
+          set -euo pipefail
+          FFMPEG_BIN="$(node -p "require('ffmpeg-static')")"
+          FFPROBE_BIN="$(node -p "require('ffprobe-static').path")"
+          chmod +x "$FFMPEG_BIN" "$FFPROBE_BIN"
+          echo "FFMPEG_PATH=$FFMPEG_BIN" >> "$GITHUB_ENV"
+          echo "FFPROBE_PATH=$FFPROBE_BIN" >> "$GITHUB_ENV"
+          "$FFMPEG_BIN" -version | head -n 1
+          "$FFPROBE_BIN" -version | head -n 1
 
       - name: Install local neural voice and image dependencies
         run: |
@@ -88,7 +94,7 @@ jobs:
 
       - name: Verify final media
         run: |
-          ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_name,width,height,r_frame_rate -of json out/dinosaur-water-reel-v3.mp4
+          "$FFPROBE_PATH" -v error -show_entries format=duration,size -show_entries stream=codec_name,width,height,r_frame_rate -of json out/dinosaur-water-reel-v3.mp4
           test -s out/dinosaur-water-reel-v3.mp4
 
       - name: Upload final MP4 and metadata
