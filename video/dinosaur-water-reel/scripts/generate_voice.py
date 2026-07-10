@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -20,6 +21,7 @@ MODEL_NAME = "es_MX-ald-medium"
 MODEL_PATH = MODEL_DIR / f"{MODEL_NAME}.onnx"
 CONFIG_PATH = MODEL_DIR / f"{MODEL_NAME}.onnx.json"
 TARGET_SECONDS = 32.8
+FFMPEG = os.environ.get("FFMPEG_PATH", "ffmpeg")
 
 
 @dataclass(frozen=True)
@@ -52,17 +54,13 @@ def run(*args: str) -> None:
     subprocess.run(args, check=True)
 
 
-def duration(path: Path) -> float:
-    result = subprocess.run(
-        [
-            "ffprobe", "-v", "error", "-show_entries", "format=duration",
-            "-of", "default=noprint_wrappers=1:nokey=1", str(path),
-        ],
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    return float(result.stdout.strip())
+def wav_duration(path: Path) -> float:
+    with wave.open(str(path), "rb") as wav_file:
+        frames = wav_file.getnframes()
+        rate = wav_file.getframerate()
+        if rate <= 0:
+            raise RuntimeError(f"Invalid WAV sample rate: {path}")
+        return frames / rate
 
 
 def ensure_model() -> None:
@@ -109,6 +107,7 @@ def synthesize_segment(voice: PiperVoice, segment: Segment, raw_wav: Path) -> No
 
 def main() -> None:
     print(f"Python: {sys.version}", flush=True)
+    print(f"FFmpeg binary: {FFMPEG}", flush=True)
     if BUILD.exists():
         shutil.rmtree(BUILD)
     BUILD.mkdir(parents=True)
@@ -128,18 +127,18 @@ def main() -> None:
         wav = BUILD / f"segment-{index:02d}.wav"
         synthesize_segment(voice, segment, raw_wav)
         run(
-            "ffmpeg", "-y", "-v", "error", "-i", str(raw_wav),
+            FFMPEG, "-y", "-v", "error", "-i", str(raw_wav),
             "-af", "highpass=f=65,lowpass=f=15000,acompressor=threshold=-19dB:ratio=2.0:attack=14:release=150,equalizer=f=165:t=q:w=0.9:g=1.4,equalizer=f=3200:t=q:w=1.1:g=1.2",
             "-ar", "48000", "-ac", "2", "-c:a", "pcm_s16le", str(wav),
         )
-        seg_duration = duration(wav)
+        seg_duration = wav_duration(wav)
         wavs.append(wav)
         segment_durations.append(seg_duration)
 
         if segment.pause > 0:
             silence = BUILD / f"silence-{index:02d}.wav"
             run(
-                "ffmpeg", "-y", "-v", "error", "-f", "lavfi",
+                FFMPEG, "-y", "-v", "error", "-f", "lavfi",
                 "-i", "anullsrc=r=48000:cl=stereo", "-t", f"{segment.pause:.3f}",
                 "-c:a", "pcm_s16le", str(silence),
             )
@@ -149,16 +148,16 @@ def main() -> None:
     concat_file.write_text("\n".join(f"file '{path.as_posix()}'" for path in wavs), encoding="utf-8")
     merged = BUILD / "merged.wav"
     run(
-        "ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0",
+        FFMPEG, "-y", "-v", "error", "-f", "concat", "-safe", "0",
         "-i", str(concat_file), "-c:a", "pcm_s16le", str(merged),
     )
 
-    raw_total = duration(merged)
+    raw_total = wav_duration(merged)
     speed = raw_total / TARGET_SECONDS
     print(f"Narration before final timing: {raw_total:.3f}s; speed factor: {speed:.4f}", flush=True)
     output = PUBLIC / "narration.mp3"
     run(
-        "ffmpeg", "-y", "-v", "error", "-i", str(merged),
+        FFMPEG, "-y", "-v", "error", "-i", str(merged),
         "-filter:a", f"{atempo_chain(speed)},loudnorm=I=-16:TP=-1.5:LRA=8",
         "-ar", "48000", "-ac", "2", "-b:a", "192k", str(output),
     )
