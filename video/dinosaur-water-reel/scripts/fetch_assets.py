@@ -48,7 +48,7 @@ def request_bytes(url: str) -> bytes:
             "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
         },
     )
-    with urllib.request.urlopen(req, timeout=180) as response:
+    with urllib.request.urlopen(req, timeout=25) as response:
         return response.read()
 
 
