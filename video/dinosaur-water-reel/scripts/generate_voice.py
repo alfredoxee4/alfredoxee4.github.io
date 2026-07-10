@@ -1,19 +1,21 @@
 from __future__ import annotations
 
-import asyncio
 import json
 import shutil
 import subprocess
+import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
-
-import edge_tts
-from gtts import gTTS
 
 ROOT = Path(__file__).resolve().parents[1]
 BUILD = ROOT / ".build" / "voice"
 PUBLIC = ROOT / "public"
 TIMINGS_PATH = ROOT / "src" / "generatedTimings.json"
+MODEL_DIR = ROOT / ".build" / "piper-model"
+MODEL_NAME = "es_MX-ald-medium"
+MODEL_PATH = MODEL_DIR / f"{MODEL_NAME}.onnx"
+CONFIG_PATH = MODEL_DIR / f"{MODEL_NAME}.onnx.json"
+MODEL_BASE = "https://huggingface.co/rhasspy/piper-voices/resolve/main/es/es_MX/ald/medium"
 TARGET_SECONDS = 32.8
 
 
@@ -23,39 +25,31 @@ class Segment:
     text: str
     emphasis: str
     pause: float
-    rate: str
-    pitch: str
 
 
 SEGMENTS = [
-    Segment("hook", "¿Sabías que el agua que estás tomando ahora mismo… ya la bebió un dinosaurio?", "dinosaurio", 0.30, "+12%", "+2Hz"),
-    Segment("same-water", "Esa misma agua que tienes en la mano nunca se crea ni se destruye.", "nunca", 0.15, "+12%", "+0Hz"),
-    Segment("four-billion", "Ha estado dando vueltas por la Tierra durante cuatro mil millones de años.", "cuatro mil millones", 0.10, "+13%", "-1Hz"),
-    Segment("rain", "Fue lluvia en la época de los dinosaurios…", "lluvia", 0.13, "+7%", "-2Hz"),
-    Segment("trex", "pasó por la garganta de un Tiranosaurio Rex…", "Tiranosaurio Rex", 0.13, "+7%", "-2Hz"),
-    Segment("oceans", "estuvo en océanos que ya no existen…", "océanos", 0.13, "+5%", "-3Hz"),
-    Segment("oil", "y tocó plantas del Jurásico que hoy son petróleo.", "petróleo", 0.22, "+6%", "-3Hz"),
-    Segment("history", "Cada vaso de agua que bebes es un pedacito de historia antigua… literalmente estás bebiendo tiempo.", "bebiendo tiempo", 0.20, "+3%", "-4Hz"),
-    Segment("different", "Así que la próxima vez que tomes agua… mírala diferente.", "diferente", 0.12, "+8%", "+0Hz"),
-    Segment("cta", "Si te voló la cabeza esto, dale like y síguenos, porque aquí vienen cosas aún más fuertes.", "síguenos", 0.0, "+15%", "+2Hz"),
+    Segment("hook", "¿Sabías que el agua que estás tomando ahora mismo… ya la bebió un dinosaurio?", "dinosaurio", 0.30),
+    Segment("same-water", "Esa misma agua que tienes en la mano nunca se crea ni se destruye.", "nunca", 0.15),
+    Segment("four-billion", "Ha estado dando vueltas por la Tierra durante cuatro mil millones de años.", "cuatro mil millones", 0.10),
+    Segment("rain", "Fue lluvia en la época de los dinosaurios…", "lluvia", 0.13),
+    Segment("trex", "pasó por la garganta de un Tiranosaurio Rex…", "Tiranosaurio Rex", 0.13),
+    Segment("oceans", "estuvo en océanos que ya no existen…", "océanos", 0.13),
+    Segment("oil", "y tocó plantas del Jurásico que hoy son petróleo.", "petróleo", 0.22),
+    Segment("history", "Cada vaso de agua que bebes es un pedacito de historia antigua… literalmente estás bebiendo tiempo.", "bebiendo tiempo", 0.20),
+    Segment("different", "Así que la próxima vez que tomes agua… mírala diferente.", "diferente", 0.12),
+    Segment("cta", "Si te voló la cabeza esto, dale like y síguenos, porque aquí vienen cosas aún más fuertes.", "síguenos", 0.0),
 ]
 
 
-def run(*args: str) -> None:
-    subprocess.run(args, check=True)
+def run(*args: str, input_text: str | None = None) -> None:
+    subprocess.run(args, check=True, input=input_text, text=input_text is not None)
 
 
 def duration(path: Path) -> float:
     result = subprocess.run(
         [
-            "ffprobe",
-            "-v",
-            "error",
-            "-show_entries",
-            "format=duration",
-            "-of",
-            "default=noprint_wrappers=1:nokey=1",
-            str(path),
+            "ffprobe", "-v", "error", "-show_entries", "format=duration",
+            "-of", "default=noprint_wrappers=1:nokey=1", str(path),
         ],
         check=True,
         capture_output=True,
@@ -64,36 +58,18 @@ def duration(path: Path) -> float:
     return float(result.stdout.strip())
 
 
-async def choose_voice() -> str:
-    preferred = [
-        "es-MX-JorgeNeural",
-        "es-US-AlonsoNeural",
-        "es-ES-AlvaroNeural",
-        "es-AR-TomasNeural",
-    ]
-    try:
-        available = {voice["ShortName"] for voice in await edge_tts.list_voices()}
-        for candidate in preferred:
-            if candidate in available:
-                return candidate
-    except Exception as exc:  # noqa: BLE001
-        print(f"Could not list Edge voices: {exc}")
-    return preferred[0]
+def download(url: str, destination: Path) -> None:
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    if destination.exists() and destination.stat().st_size > 1000:
+        return
+    request = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 GitHub-Actions-Piper"})
+    with urllib.request.urlopen(request, timeout=180) as response, destination.open("wb") as output:
+        shutil.copyfileobj(response, output)
 
 
-async def synthesize_edge(segment: Segment, voice: str, output: Path) -> None:
-    communicator = edge_tts.Communicate(
-        segment.text,
-        voice,
-        rate=segment.rate,
-        pitch=segment.pitch,
-        volume="+0%",
-    )
-    await communicator.save(str(output))
-
-
-def synthesize_gtts(segment: Segment, output: Path) -> None:
-    gTTS(text=segment.text, lang="es", tld="com.mx", slow=False).save(str(output))
+def ensure_model() -> None:
+    download(f"{MODEL_BASE}/{MODEL_NAME}.onnx", MODEL_PATH)
+    download(f"{MODEL_BASE}/{MODEL_NAME}.onnx.json", CONFIG_PATH)
 
 
 def atempo_chain(speed: float) -> str:
@@ -109,30 +85,29 @@ def atempo_chain(speed: float) -> str:
     return ",".join(filters)
 
 
-async def main() -> None:
+def main() -> None:
     if BUILD.exists():
         shutil.rmtree(BUILD)
     BUILD.mkdir(parents=True)
     PUBLIC.mkdir(parents=True, exist_ok=True)
-
-    voice = await choose_voice()
-    print(f"Selected neural voice: {voice}")
+    ensure_model()
 
     wavs: list[Path] = []
     segment_durations: list[float] = []
-    engine = "Microsoft Edge Neural"
 
     for index, segment in enumerate(SEGMENTS):
-        mp3 = BUILD / f"segment-{index:02d}.mp3"
+        raw_wav = BUILD / f"segment-{index:02d}-raw.wav"
         wav = BUILD / f"segment-{index:02d}.wav"
-        try:
-            await synthesize_edge(segment, voice, mp3)
-        except Exception as exc:  # noqa: BLE001
-            print(f"Edge TTS failed on segment {index + 1}: {exc}. Falling back to Google TTS.")
-            engine = "Google TTS fallback"
-            synthesize_gtts(segment, mp3)
         run(
-            "ffmpeg", "-y", "-v", "error", "-i", str(mp3),
+            "piper",
+            "--model", str(MODEL_PATH),
+            "--config", str(CONFIG_PATH),
+            "--output_file", str(raw_wav),
+            input_text=segment.text,
+        )
+        run(
+            "ffmpeg", "-y", "-v", "error", "-i", str(raw_wav),
+            "-af", "highpass=f=70,lowpass=f=14500,acompressor=threshold=-18dB:ratio=2.2:attack=12:release=140",
             "-ar", "48000", "-ac", "2", "-c:a", "pcm_s16le", str(wav),
         )
         seg_duration = duration(wav)
@@ -158,8 +133,6 @@ async def main() -> None:
 
     raw_total = duration(merged)
     speed = raw_total / TARGET_SECONDS
-    print(f"Raw narration: {raw_total:.3f}s; target: {TARGET_SECONDS:.3f}s; speed factor: {speed:.4f}")
-
     output = PUBLIC / "narration.mp3"
     run(
         "ffmpeg", "-y", "-v", "error", "-i", str(merged),
@@ -186,15 +159,15 @@ async def main() -> None:
 
     TIMINGS_PATH.write_text(json.dumps(timeline, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     metadata = {
-        "engine": engine,
-        "voice": voice,
+        "engine": "Piper local neural TTS",
+        "voice": MODEL_NAME,
         "target_seconds": TARGET_SECONDS,
         "raw_seconds": round(raw_total, 3),
         "speed_factor": round(speed, 4),
     }
     (PUBLIC / "voice-metadata.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Created {output} using {engine} / {voice}")
+    print(f"Created {output} using local Piper voice {MODEL_NAME}")
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
